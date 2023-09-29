@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Income after tax</title>
+	<script src="src/incomeAfterTax.js" type="module" defer></script>
+	<style>
+		.hideLabel{
+			visibility: visible;
+		}
+
+		input[hidden] + .hideLabel{
+			visibility: hidden;
+		}
+
+		.hideIfChildrenHidden:has(input[hidden]) {
+			display: none;
+		}
+
+		.hideIfChildrenHidden:has(label[hidden]) {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+</body>
+
+</html>

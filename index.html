@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Money tools</title>
+	<script src="src/index.js" type="module" defer></script>
+	<style>
+		.hideLabel{
+			visibility: visible;
+		}
+
+		input[hidden] + .hideLabel{
+			visibility: hidden;
+		}
+
+		.hideIfChildrenHidden:has(input[hidden]) {
+			display: none;
+		}
+
+		.hideIfChildrenHidden:has(label[hidden]) {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="buttonContainer">
+		<button type="button" onclick="location.href='/incomeAfterTax.html';" id="makeNewSeed">Income after tax</button>
+	</div>	
+</body>
+
+</html>
