@@ -1,0 +1,9 @@
+{
+	"brackets": [
+		{"min": 0, "percent": 0.0},
+		{"min": 18201, "percent": 0.19},
+		{"min": 45001, "percent": 0.325},
+		{"min": 120001, "percent": 0.37},
+		{"min": 180001, "percent": 0.45}
+	]
+}

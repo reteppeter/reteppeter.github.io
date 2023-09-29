@@ -21,10 +21,66 @@
 		.hideIfChildrenHidden:has(label[hidden]) {
 			display: none;
 		}
+		
+		.hideIfDirectChildrenHidden:has(> input[hidden]) {
+			display: none;
+		}
+
+		.hideIfDirectChildrenHidden:has(> label[hidden]) {
+			display: none;
+		}
 	</style>
 </head>
 
 <body>
+	<div class="entryField hideIfDirectChildrenHidden">
+		<input type="number" min="1" value="192" id="wantedIncomeSetter" autocomplete="false">
+		<label for="wantedIncomeSetter">Wanted income after tax</label>
+		<input type="checkbox" id="isPerWeek" checked>
+		<label for="isPerWeek">Per week</label>
+		
+		<div class="entryField">
+			<input type="checkbox" id="includeMyki" checked>
+			<label for="includeMyki">Add MYKI cost</label>
+			
+			<div class="entryField hideIfChildrenHidden">
+				<input type="checkbox" id="isMykiPrepaid" checked>
+				<label for="isMykiPrepaid">MYKI prepaid</label>
+			</div>
+		</div>
+	</div>
+	<div class="infoContainer hideIfChildrenHidden">
+		<label id="hourlyWageOutput">Hourly:</label>
+	</div>
+	<div class="infoContainer hideIfChildrenHidden">
+		<label id="dailyWageOutput">Daily:</label>
+	</div>
+	<div class="infoContainer hideIfChildrenHidden">
+		<label id="weeklyWageOutput">Weekly:</label>
+	</div>
+	<div class="infoContainer hideIfChildrenHidden">
+		<label id="yearlyWageOutput">Yearly:</label>
+	</div>
+	
+
+	<div class="entryField hideIfChildrenHidden">
+		<input type="number" min="1" value="192" id="salarySetter" autocomplete="false">
+		<label for="salarySetter">Income before tax</label>
+		<input type="checkbox" id="isPerWeek2" checked>
+		<label for="isPerWeek2">Per week</label>
+	</div>
+	<div class="infoContainer hideIfChildrenHidden">
+		<label id="hourlyWageOutput2"></label>
+	</div>
+	<div class="infoContainer hideIfChildrenHidden">
+		<label id="dailyWageOutput2"></label>
+	</div>
+	<div class="infoContainer hideIfChildrenHidden">
+		<label id="weeklyWageOutput2"></label>
+	</div>
+	<div class="infoContainer hideIfChildrenHidden">
+		<label id="yearlyWageOutput2"></label>
+	</div>
 </body>
 
 </html>
