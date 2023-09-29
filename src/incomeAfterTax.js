@@ -1,5 +1,5 @@
-import taxBrackets from "./taxBrackets.json" assert { type: "json" };
-import medicareLevy from "./medicareLevy.json" assert { type: "json" };
+const { default: medicareLevy } = await import("./medicareLevy.json", { assert: { type: "json" } })
+const { default: taxBrackets } = await import("./taxBrackets.json", { assert: { type: "json" } })
 
 main();
 
