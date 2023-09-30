@@ -112,10 +112,10 @@ async function main(){
 					previousBracket = bracket;
 				}
 				
-				let neededYearlyWage = (totalIncome - previousBracket.equivalentMin) / (1 - previousBracket.percent - medicareLevy.value) + previousBracket.min;
+				let neededYearlyWage = Math.max((totalIncome - previousBracket.equivalentMin) / (1 - previousBracket.percent - medicareLevy.value) + previousBracket.min, 0);
 				
-				let medicareTax = neededYearlyWage * medicareLevy.value;
-				let incomeTax = neededYearlyWage - totalIncome - medicareTax;
+				let medicareTax = Math.max(neededYearlyWage * medicareLevy.value, 0);
+				let incomeTax = Math.max(neededYearlyWage - totalIncome - medicareTax, 0);
 				
 				hourlyWageOutput.innerHTML = "Hourly: " + moneyFormat.format(neededYearlyWage * yearlyToHourly);
 				dailyWageOutput.innerHTML = "Daily: " + moneyFormat.format(neededYearlyWage * yearlyToDaily);
@@ -136,10 +136,10 @@ async function main(){
 					previousBracket = bracket;
 				}
 				
-				let medicareTax = finalSalary * medicareLevy.value;
-				let incomeTax = previousBracket.alreadyPaidTax + (finalSalary - previousBracket.min) * previousBracket.percent;
+				let medicareTax = Math.max(finalSalary * medicareLevy.value, 0);
+				let incomeTax = Math.max(previousBracket.alreadyPaidTax + (finalSalary - previousBracket.min) * previousBracket.percent, 0);
 				
-				let finalWage = finalSalary - incomeTax - medicareTax
+				let finalWage = Math.max(finalSalary - incomeTax - medicareTax, 0);
 				
 				hourlyWageOutput.innerHTML = "Hourly: " + moneyFormat.format(finalWage * yearlyToHourly);
 				dailyWageOutput.innerHTML = "Daily: " + moneyFormat.format(finalWage * yearlyToDaily);
