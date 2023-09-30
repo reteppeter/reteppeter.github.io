@@ -3,14 +3,87 @@
 
 <head>
 	<meta charset="utf-8" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 	<title>Income after tax</title>
 	<script src="src/incomeAfterTax.js" type="module" defer></script>
 	<style>
-		.hideLabel{
+		body {
+			font-family: "Open Sans", sans-serif;
+		}
+
+		.OverallView {
+			padding-top: 50px;
+			padding-left: 80px;
+		}
+
+		@media only screen and (max-device-width: 640px) {
+			body {
+				font-size: x-large;
+				background-color: rgb(72, 75, 77);
+				padding: 10px;
+			}
+
+			input[type=checkbox] {
+				transform: scale(2);
+				padding: 10px;
+			}
+
+			.OverallView {
+				padding-top: 0px;
+				padding-left: 0px;
+
+				margin: auto;
+				width: 50%;
+				color: white;
+				background-color: rgb(32, 34, 37);
+				padding: 10px;
+				border-radius: 10px;
+			}
+
+			.MainEntryField {
+				border: 2px solid rgb(70, 68, 68);
+				background-color: rgb(32, 34, 37);
+				border-radius: 16px;
+				width: 80%;
+				margin: 8px;
+				font-size: xx-large;
+				text-align: right;
+				color: white;
+			}
+
+			.SameRowSelector {
+				border: 2px solid rgb(70, 68, 68);
+				background-color: rgb(32, 34, 37);
+				border-radius: 16px;
+				width: 40%;
+				margin: 8px;
+				font-size: xx-large;
+				text-align: right;
+				color: white;
+			}
+
+			.MainEntryFieldParent {
+				display: flex;
+				justify-content: center;
+				width: 100%;
+				text-align: bottom;
+			}
+
+			.OptionFloatRight {
+				text-align: right;
+				float: right;
+			}
+		}
+
+		.hideLabel {
 			visibility: visible;
 		}
 
-		input[hidden] + .hideLabel{
+		input[hidden]+.hideLabel {
+			visibility: hidden;
+		}
+
+		.hideIfChildrenHiddenButKeepForLayout:has(input[hidden]) {
 			visibility: hidden;
 		}
 
@@ -21,7 +94,7 @@
 		.hideIfChildrenHidden:has(label[hidden]) {
 			display: none;
 		}
-		
+
 		.hideIfDirectChildrenHidden:has(> input[hidden]) {
 			display: none;
 		}
@@ -29,57 +102,69 @@
 		.hideIfDirectChildrenHidden:has(> label[hidden]) {
 			display: none;
 		}
+
+		/* .div:has(> label[hidden]) {
+			display: none;
+		} */
 	</style>
 </head>
 
 <body>
-	<div class="entryField hideIfDirectChildrenHidden">
-		<input type="number" min="1" value="192" id="wantedIncomeSetter" autocomplete="false">
-		<label for="wantedIncomeSetter">Wanted income after tax</label>
-		<input type="checkbox" id="isPerWeek" checked>
-		<label for="isPerWeek">Per week</label>
-		
-		<div class="entryField">
-			<input type="checkbox" id="includeMyki" checked>
-			<label for="includeMyki">Add MYKI cost</label>
-			
-			<div class="entryField hideIfChildrenHidden">
-				<input type="checkbox" id="isMykiPrepaid" checked>
-				<label for="isMykiPrepaid">MYKI prepaid</label>
+	<div id="ContainerRemoveTax" class="OverallView">
+		<div class="entryField hideIfDirectChildrenHidden">
+			<label for="incomeSetter">For an income of:</label>
+			<div class="MainEntryFieldParent">
+				$<input class="MainEntryField" type="number" id="incomeSetter">
+				<input class="MainEntryField" type="text" inputmode="numeric" id="incomeSetterSaver" style="display: none;" disabled>
+			</div>
+			<div class="MainEntryFieldParent">
+				<select id="payPeriodSelector" class="SameRowSelector">
+					<option value="hourly">Hourly</option>
+					<option value="daily">Daily</option>
+					<option value="weekly" selected>Weekly</option>
+					<option value="monthly">Monthly</option>
+					<option value="yearly">Annually</option>
+				</select>
+				<select id="beforeOrAfterTax" class="SameRowSelector">
+					<option value="before">Before Tax</option>
+					<option value="after" selected>After Tax</option>
+				</select>
+			</div>
+
+			<div class="entryField" id="ContainerMykiStuff">
+				<input type="checkbox" id="includeMyki" checked>
+				<label for="includeMyki" class="OptionFloatRight">plus a MYKI</label>
+
+				<div class="entryField hideIfChildrenHiddenButKeepForLayout">
+					<input type="checkbox" id="isMykiPrepaid" checked>
+					<label for="isMykiPrepaid" class="OptionFloatRight">(MYKI prepaid)</label>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="infoContainer hideIfChildrenHidden">
-		<label id="hourlyWageOutput">Hourly:</label>
-	</div>
-	<div class="infoContainer hideIfChildrenHidden">
-		<label id="dailyWageOutput">Daily:</label>
-	</div>
-	<div class="infoContainer hideIfChildrenHidden">
-		<label id="weeklyWageOutput">Weekly:</label>
-	</div>
-	<div class="infoContainer hideIfChildrenHidden">
-		<label id="yearlyWageOutput">Yearly:</label>
-	</div>
-	
 
-	<div class="entryField hideIfChildrenHidden">
-		<input type="number" min="1" value="192" id="salarySetter" autocomplete="false">
-		<label for="salarySetter">Income before tax</label>
-		<input type="checkbox" id="isPerWeek2" checked>
-		<label for="isPerWeek2">Per week</label>
-	</div>
-	<div class="infoContainer hideIfChildrenHidden">
-		<label id="hourlyWageOutput2"></label>
-	</div>
-	<div class="infoContainer hideIfChildrenHidden">
-		<label id="dailyWageOutput2"></label>
-	</div>
-	<div class="infoContainer hideIfChildrenHidden">
-		<label id="weeklyWageOutput2"></label>
-	</div>
-	<div class="infoContainer hideIfChildrenHidden">
-		<label id="yearlyWageOutput2"></label>
+		<br></br>
+		<label id="ThenField">Then, before tax you have to make:</label>
+		<div class="infoContainer hideIfChildrenHidden">
+			<label id="hourlyWageOutput">Hourly:</label>
+		</div>
+		<div class="infoContainer hideIfChildrenHidden">
+			<label id="dailyWageOutput">Daily:</label>
+		</div>
+		<div class="infoContainer hideIfChildrenHidden">
+			<label id="weeklyWageOutput">Weekly:</label>
+		</div>
+		<div class="infoContainer hideIfChildrenHidden">
+			<label id="yearlyWageOutput">Yearly:</label>
+		</div>
+
+		<br></br>
+		<label>And pay, yearly:</label>
+		<div class="infoContainer hideIfChildrenHidden">
+			<label id="yearlyTaxOutput">Tax:</label>
+		</div>
+		<div class="infoContainer hideIfChildrenHidden">
+			<label id="yearlyMedicareOutput">Medicare costs:</label>
+		</div>
 	</div>
 </body>
 
